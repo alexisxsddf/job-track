@@ -1,36 +1,37 @@
 # 💼 JobTrack
 
-**JobTrack** is a modern web application designed to help users track job applications efficiently. With features like login, registration, personalized dashboards, and application tracking, JobTrack aims to simplify the job search process.
+**JobTrack** is a modern web application designed to help users track their job applications efficiently. Featuring user authentication, personalized dashboards, job filtering, and application status tracking, JobTrack simplifies your job search journey.
 
 ---
 
 ## 🚀 Features
 
-- ✅ User authentication (Login / Register)
-- 📄 Dashboard to track job applications
-- 📊 Statistics and analytics
-- 📝 Add / Edit / Delete job entries
-- 🔍 Filter and sort by job type, status, and more
-- 🔒 Secure with Firebase authentication
-- 💡 Built with modern tech stack
+- ✅ User Authentication (Login & Registration) with Firebase  
+- 🔐 Secure login via Email/Password and Google OAuth  
+- 📄 Company details and job listings  
+- 🔍 Filter and sort jobs by type, status, and other criteria  
+- 🎨 Smooth UI animations with Framer Motion  
+- ⚡ Responsive design powered by Tailwind CSS  
+- 🌐 SEO-friendly via React Helmet Async  
+- 🔔 Real-time feedback with React Toastify notifications  
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Frontend:**
-- React.js
-- Tailwind CSS
-- React Router
-- Framer Motion (for smooth UI animations)
-
-**Backend:**
-- Node.js
-- Express.js
-- MongoDB (with Mongoose)
-
-**Authentication:**
-- Firebase Auth (Email/Password & Google Login)
+| Technology              | Description                            |
+|------------------------|-------------------------------------|
+| ![React](https://img.shields.io/badge/React-19.1.0-blue)               | Frontend UI Library                   |
+| ![Firebase](https://img.shields.io/badge/Firebase-11.9.1-yellow)        | Authentication Backend Service       |
+| ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.18.1-pink) | UI Animation Framework               |
+| ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.3.2-teal)    | Utility-first CSS Framework           |
+| ![React Router](https://img.shields.io/badge/React_Router-6.12.1-blue)  | Client-side Routing                   |
+| ![React Toastify](https://img.shields.io/badge/React_Toastify-11.0.5-green) | Toast Notifications                  |
+| ![React Helmet Async](https://img.shields.io/badge/React_Helmet_Async-2.0.5-lightgrey) | SEO Head Management                 |
+| ![React Icons](https://img.shields.io/badge/React_Icons-5.5.0-purple)   | Icon Library                         |
+| ![React Intersection Observer](https://img.shields.io/badge/React_Intersection_Observer-9.16.0-orange) | Scroll-triggered Animations         |
+| ![React Scroll](https://img.shields.io/badge/React_Scroll-1.9.3-red)     | Smooth Scrolling                     |
+| ![React CountUp](https://img.shields.io/badge/React_CountUp-6.5.3-cyan)  | Animated Number Counters             |
 
 ---
 
@@ -38,19 +39,20 @@
 
 ```bash
 job-track/
-├── client/                 # Frontend React code
-│   ├── public/
+├── client/                 # Frontend React application
+│   ├── public/             # Static files
 │   └── src/
-│       ├── components/
-│       ├── pages/
-│       ├── context/
-│       ├── routes/
-│       └── App.jsx
-├── server/                 # Backend Node.js code
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   └── server.js
-├── .env
-├── package.json
-└── README.md
+│       ├── components/     # Reusable UI components (Navbar, Forms, Cards, etc.)
+│       ├── pages/          # Route-based page components (Login, Register, Dashboard, etc.)
+│       ├── provider/       # React Context Providers (AuthProvider, etc.)
+│       ├── routes/         # Route definitions & protected routes
+│       ├── assets/         # Images, icons, styles
+│       ├── hooks/          # Custom React hooks (optional)
+│       ├── firebase.config.js # Firebase setup and initialization
+│       ├── App.jsx         # Main app component and routing
+│       └── index.jsx       # ReactDOM render entry point
+├── .env                    # Environment variables (Firebase config, etc.)
+├── package.json            # Project dependencies and scripts
+└── README.md               # This file
+
+
