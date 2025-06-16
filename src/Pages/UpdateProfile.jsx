@@ -76,7 +76,7 @@ const UpdateProfile = () => {
                             className="input input-bordered w-full"
                             value={photoURL}
                             onChange={(e) => setPhotoURL(e.target.value)}
-                            required
+
                         />
                     </label>
 

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import { FaPhotoFilm } from "react-icons/fa6";
-import { use, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
@@ -28,15 +28,17 @@ const itemVariants = {
 };
 
 const Register = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [nameError, setNameError] = useState('');
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const { createUser, setUser, updateUser, googleSignIn } = use(AuthContext);
+    const { createUser, setUser, updateUser, googleSignIn } = useContext(AuthContext);
+
+    const redirectPath = location.state || "/";
 
     const handleNameOnChange = (e) => {
         const value = e.target.value;
@@ -77,7 +79,7 @@ const Register = () => {
         googleSignIn()
             .then((result) => {
                 toast.success("You've created profile successfully!");
-                navigate(location.state ? location.state : "/");
+                navigate(redirectPath);
             })
             .catch((error) => {
                 toast.error(firebaseError(error.code));
@@ -101,7 +103,7 @@ const Register = () => {
                     .then(() => {
                         setUser({ ...user, displayName: name, photoURL: photo });
                         toast.success("Account created successfully!");
-                        navigate("/");
+                        navigate(redirectPath);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -208,7 +210,11 @@ const Register = () => {
 
                     <motion.div className="text-center mt-6 text-sm" variants={itemVariants}>
                         Already have an account?{" "}
-                        <Link to="/auth/login" className="link link-primary font-semibold">
+                        <Link
+                            to="/auth/login"
+                            state={redirectPath}
+                            className="link link-primary font-semibold"
+                        >
                             Login
                         </Link>
                     </motion.div>

@@ -1,18 +1,19 @@
-import { FaUserAlt, FaLock } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { motion } from "framer-motion";
-import { Link, useLocation, useNavigate } from "react-router";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import { Link, useLocation, useNavigate } from "react-router";
+import { FaUserAlt, FaLock } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 
 const Login = () => {
     const [email, setEmail] = useState("");
-    // const [forgotPasswordEmail, setForgotPasswordEmail] = useState('')
-    const { signIn, googleSignIn, forgotPassword } = useContext(AuthContext);
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
+
+    const redirectPath = location.state || "/";
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -21,166 +22,102 @@ const Login = () => {
         const password = form.password.value;
 
         signIn(email, password)
-            .then((result) => {
-                toast.success("You've successfully logged in!");
-                navigate(location.state ? location.state : "/");
+            .then(() => {
+                toast.success("Logged in successfully!");
+                navigate(redirectPath, { replace: true });
             })
             .catch((error) => {
-                const errorCode = error.code;
-                let message = "Something went wrong.";
-
-                switch (errorCode) {
+                let message = "Login failed.";
+                switch (error.code) {
                     case "auth/user-not-found":
-                        message = "No account found with this email.";
+                        message = "No account found.";
                         break;
                     case "auth/wrong-password":
-                        message = "Incorrect password. Please try again.";
+                        message = "Wrong password.";
                         break;
                     case "auth/invalid-email":
-                        message = "Please enter a valid email address.";
-                        break;
-                    case "auth/invalid-credential":
-                        message = "Invalid email or password.";
+                        message = "Invalid email.";
                         break;
                     case "auth/too-many-requests":
-                        message = "Too many login attempts. Try again later.";
+                        message = "Too many attempts. Try later.";
                         break;
-                    default:
-                        message = "Login failed. Please check your credentials.";
                 }
-
                 toast.error(message);
             });
-
     };
 
     const handleGoogleLogin = () => {
         googleSignIn()
-            .then((result) => {
-                toast.success("You've successfully logged in!");
-                navigate(location.state ? location.state : "/");
+            .then(() => {
+                toast.success("Google login successful!");
+                navigate(redirectPath, { replace: true });
             })
             .catch((error) => {
-                toast.error(`Google sign-in failed: ${error.message}`);
+                toast.error(`Google login failed: ${error.message}`);
             });
     };
-
-    // const handleForgotPassword = () => {
-    //     if (!email) {
-    //         toast.warn("Please enter your email to reset password.");
-    //         return;
-    //     }
-
-    //     // forgotPassword(email)
-    //     //     .then(() => {
-    //     //         toast.success("Password reset email sent.");
-    //     //     })
-    //     //     .catch((error) => {
-    //     //         toast.error(`Reset failed: ${error.message}`);
-    //     //     });
-    // };
 
     return (
         <>
             <Helmet>
                 <title>Login | JobTrack</title>
             </Helmet>
-            <div className="bg-base-200 flex items-center justify-center p-6 min-h-[calc(100vh-64px)]">
+            <div className="min-h-screen flex items-center justify-center bg-base-200 p-6">
                 <motion.div
-                    className="bg-base-100 shadow-2xl rounded-2xl p-8 w-full max-w-md"
+                    className="bg-base-100 p-8 rounded-2xl shadow-2xl max-w-md w-full"
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <motion.h2
-                        className="text-3xl font-bold text-center mb-6 text-primary"
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                    >
-                        Please Login
-                    </motion.h2>
-
-                    <form className="space-y-4" onSubmit={handleLogin}>
-                        <motion.label
-                            className="input input-bordered flex items-center gap-2 w-full"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.3, duration: 0.4 }}
-                        >
+                    <h2 className="text-3xl font-bold text-center text-primary mb-6">Please Login</h2>
+                    <form onSubmit={handleLogin} className="space-y-4">
+                        <label className="input input-bordered flex items-center gap-2 w-full">
                             <FaUserAlt className="text-primary" />
                             <input
                                 type="text"
-                                className="grow"
-                                placeholder="Username or Email"
                                 name="email"
+                                placeholder="Email"
                                 value={email}
                                 required
                                 onChange={(e) => setEmail(e.target.value)}
+                                className="grow"
                             />
-                        </motion.label>
-
-                        <motion.label
-                            className="input input-bordered flex items-center gap-2 w-full"
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.4, duration: 0.4 }}
-                        >
+                        </label>
+                        <label className="input input-bordered flex items-center gap-2 w-full">
                             <FaLock className="text-primary" />
                             <input
                                 type="password"
-                                className="grow"
-                                placeholder="Password"
                                 name="password"
+                                placeholder="Password"
                                 required
+                                className="grow"
                             />
-                        </motion.label>
-
-                        <div className="flex justify-between text-sm mt-2">
-                            <label className="label cursor-pointer">
-                                <input type="checkbox" className="checkbox checkbox-primary mr-2" />
+                        </label>
+                        <div className="flex justify-between text-sm">
+                            <label>
+                                <input type="checkbox" className="mr-2" />
                                 Remember me
                             </label>
-                            <Link
-                                to='/auth/forgotPassword'
-                                state={{ email }}
-                                className="link link-hover text-primary"
-                            >
+                            <Link to="/auth/forgotPassword" state={{ email }} className="link link-primary">
                                 Forgot Password?
                             </Link>
                         </div>
-
-                        <motion.button
-                            type="submit"
-                            className="btn btn-primary w-full mt-4"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            Login
-                        </motion.button>
+                        <button type="submit" className="btn btn-primary w-full mt-2">Login</button>
                     </form>
-
-                    {/* Social Login Options */}
-                    <div className="mt-6">
-                        <small className="divider">OR</small>
-                        <motion.button
-                            onClick={handleGoogleLogin}
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="btn btn-outline btn-primary flex items-center justify-center gap-2 w-full"
-                        >
-                            <FcGoogle className="text-xl" />
-                            Continue with Google
-                        </motion.button>
-                    </div>
-
-                    {/* Register Link */}
-                    <div className="text-center mt-6 text-sm">
+                    <div className="divider">OR</div>
+                    <button onClick={handleGoogleLogin} className="btn btn-outline w-full flex items-center gap-2">
+                        <FcGoogle /> Continue with Google
+                    </button>
+                    <p className="text-sm text-center mt-4">
                         Don’t have an account?{" "}
-                        <Link to="/auth/register" className="link link-primary font-semibold">
+                        <Link
+                            to="/auth/register"
+                            state={redirectPath}
+                            className="link link-primary font-semibold"
+                        >
                             Register
                         </Link>
-                    </div>
+                    </p>
                 </motion.div>
             </div>
         </>
