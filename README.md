@@ -7,6 +7,15 @@
 
 ---
 
+## 📷 Preview
+
+![JobTrack Preview](https://image.thum.io/get/width/800/crop/600/https://job-track-53365.web.app/)
+
+*Live website preview*
+
+---
+
+
 ## 🚀 Features
 
 - ✅ User Authentication (Login & Registration) with Firebase  
