@@ -122,7 +122,7 @@ const Login = () => {
                             <FaLock className="text-primary" />
                             <input
                                 type="password"
-                                className="grow pr-10"
+                                className="grow "
                                 placeholder="Password"
                                 name="password"
                                 required
