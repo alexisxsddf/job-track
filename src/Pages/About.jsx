@@ -1,15 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaBriefcase, FaGlobe, FaUsers } from 'react-icons/fa';
+import { FaBriefcase, FaUsers, FaGlobe } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 
 const cardVariants = {
     hover: {
         scale: 1.05,
+        boxShadow: '0 8px 30px rgba(0, 118, 255, 0.1)',
         transition: {
             type: 'spring',
-            stiffness: 300,
-            damping: 15,
+            stiffness: 200,
+            damping: 12,
         },
     },
 };
@@ -20,34 +21,40 @@ const About = () => {
             <Helmet>
                 <title>About | JobTrack</title>
             </Helmet>
-            <motion.div
+
+            <motion.section
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}
                 transition={{ duration: 0.6 }}
-                className="bg-gradient-to-b from-blue-50 to-blue-100 py-16"
+                className="bg-gradient-to-b from-white via-blue-50 to-blue-100 py-24"
             >
                 <div className="w-11/12 max-w-7xl mx-auto">
-                    {/* Title Section */}
-                    <div className="text-center mb-16">
-                        <h1 className="text-4xl font-bold text-primary mb-6">About JobTrack</h1>
+                    {/* Header */}
+                    <div className="text-center mb-20">
+                        <h1 className="text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+                            Get to Know <span className="text-blue-600">JobTrack</span>
+                        </h1>
+                        <div className="w-24 h-1 bg-blue-500 mx-auto mb-6 rounded-full" />
                         <p className="text-gray-700 text-lg max-w-2xl mx-auto leading-relaxed">
-                            JobTrack is your ultimate job-hunting companion. Whether you're a fresh graduate or a seasoned professional, we connect talent with opportunity—faster and smarter.
+                            Your intelligent job-hunting partner — empowering professionals to discover and organize career opportunities with confidence.
                         </p>
                     </div>
 
-                    {/* Features Grid */}
-                    <div className="grid md:grid-cols-3 gap-10">
+                    {/* Feature Cards */}
+                    <div className="grid gap-10 md:grid-cols-3">
                         {/* Card 1 */}
                         <motion.div
                             variants={cardVariants}
                             whileHover="hover"
-                            className="bg-white rounded-2xl shadow-lg p-8 text-center transition-all border border-blue-100"
+                            className="rounded-3xl p-8 bg-white border border-transparent hover:border-blue-200 shadow transition-all duration-300 text-center"
                         >
-                            <FaBriefcase className="text-5xl text-accent mb-4 mx-auto" />
-                            <h3 className="text-2xl font-semibold mb-2 text-primary">Wide Job Listings</h3>
+                            <FaBriefcase className="text-blue-600 text-6xl mx-auto mb-6" />
+                            <h3 className="text-2xl font-semibold mb-3 text-gray-900">
+                                Vast Job Market
+                            </h3>
                             <p className="text-gray-600 leading-relaxed">
-                                Explore thousands of curated job opportunities from diverse industries—all in one platform.
+                                Access thousands of high-quality job listings across multiple industries and locations.
                             </p>
                         </motion.div>
 
@@ -55,12 +62,14 @@ const About = () => {
                         <motion.div
                             variants={cardVariants}
                             whileHover="hover"
-                            className="bg-white rounded-2xl shadow-lg p-8 text-center transition-all border border-blue-100"
+                            className="rounded-3xl p-8 bg-white border border-transparent hover:border-blue-200 shadow transition-all duration-300 text-center"
                         >
-                            <FaUsers className="text-5xl text-accent mb-4 mx-auto" />
-                            <h3 className="text-2xl font-semibold mb-2 text-primary">Inclusive for All</h3>
+                            <FaUsers className="text-blue-600 text-6xl mx-auto mb-6" />
+                            <h3 className="text-2xl font-semibold mb-3 text-gray-900">
+                                For Every Talent
+                            </h3>
                             <p className="text-gray-600 leading-relaxed">
-                                Whether you're entry-level or executive, we support your journey with tailored job matches.
+                                Whether you're new to the workforce or a seasoned pro, JobTrack personalizes your experience.
                             </p>
                         </motion.div>
 
@@ -68,25 +77,29 @@ const About = () => {
                         <motion.div
                             variants={cardVariants}
                             whileHover="hover"
-                            className="bg-white rounded-2xl shadow-lg p-8 text-center transition-all border border-blue-100"
+                            className="rounded-3xl p-8 bg-white border border-transparent hover:border-blue-200 shadow transition-all duration-300 text-center"
                         >
-                            <FaGlobe className="text-5xl text-accent mb-4 mx-auto" />
-                            <h3 className="text-2xl font-semibold mb-2 text-primary">Global Reach</h3>
+                            <FaGlobe className="text-blue-600 text-6xl mx-auto mb-6" />
+                            <h3 className="text-2xl font-semibold mb-3 text-gray-900">
+                                Worldwide Access
+                            </h3>
                             <p className="text-gray-600 leading-relaxed">
-                                Discover opportunities around the world or work from anywhere with remote-friendly jobs.
+                                From remote roles to global openings, discover job options no matter where you are.
                             </p>
                         </motion.div>
                     </div>
 
-                    {/* Bottom CTA */}
-                    <div className="mt-20 text-center">
-                        <h2 className="text-3xl font-bold text-primary mb-4">Why Choose JobTrack?</h2>
+                    {/* CTA Footer */}
+                    <div className="text-center mt-24">
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                            Why Choose <span className="text-blue-600">JobTrack</span>?
+                        </h2>
                         <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
-                            With real-time updates, intelligent filtering, and a seamless experience, JobTrack is designed to simplify your job search—making it more personalized, effective, and inspiring.
+                            With smart filtering, beautiful design, and seamless workflows, JobTrack helps you land your next opportunity faster than ever.
                         </p>
                     </div>
                 </div>
-            </motion.div>
+            </motion.section>
         </>
     );
 };
