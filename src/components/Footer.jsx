@@ -11,8 +11,8 @@ export default function Footer() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
         >
-            <div className="w-11/12 mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-                {/* Brand Info */}
+            <div className="w-11/12 mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+
                 <div>
                     <Link to='/' className="flex items-center gap-3">
                         <img src={logo} className="h-10" alt="" />
@@ -23,7 +23,7 @@ export default function Footer() {
                     </p>
                 </div>
 
-                {/* Quick Links */}
+
                 <div>
                     <h2 className="text-lg font-semibold mb-2">Quick Links</h2>
                     <ul className="space-y-1">
@@ -35,7 +35,7 @@ export default function Footer() {
                     </ul>
                 </div>
 
-                {/* Social & Contact */}
+
                 <div>
                     <h2 className="text-lg font-semibold mb-2">Connect</h2>
                     <div className="flex gap-4 mb-4">
