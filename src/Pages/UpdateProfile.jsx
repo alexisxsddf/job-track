@@ -50,7 +50,7 @@ const UpdateProfile = () => {
                 </h2>
 
                 <form onSubmit={handleUpdate} className="space-y-5">
-                    {/* Name Field */}
+
                     <label className="form-control w-full">
                         <div className="label">
                             <span className="label-text font-medium">Full Name</span>
@@ -65,7 +65,7 @@ const UpdateProfile = () => {
                         />
                     </label>
 
-                    {/* Photo URL Field */}
+
                     <label className="form-control w-full">
                         <div className="label">
                             <span className="label-text font-medium">Photo URL</span>
@@ -80,7 +80,7 @@ const UpdateProfile = () => {
                         />
                     </label>
 
-                    {/* Profile Preview */}
+
                     {photoURL && (
                         <div className="flex justify-center">
                             <img
@@ -91,7 +91,7 @@ const UpdateProfile = () => {
                         </div>
                     )}
 
-                    {/* Submit Button */}
+
                     <motion.button
                         type="submit"
                         className="btn btn-primary w-full mt-4"
