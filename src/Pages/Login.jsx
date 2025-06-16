@@ -1,14 +1,34 @@
+import { FaUserAlt, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { motion } from "framer-motion";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-import { Link, useLocation, useNavigate } from "react-router";
-import { FaUserAlt, FaLock } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+
+// Motion variants
+const containerVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.6,
+            when: "beforeChildren",
+            staggerChildren: 0.2,
+        },
+    },
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+};
 
 const Login = () => {
     const [email, setEmail] = useState("");
+    // const [showPassword, setShowPassword] = useState(false);
     const { signIn, googleSignIn } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
@@ -23,25 +43,33 @@ const Login = () => {
 
         signIn(email, password)
             .then(() => {
-                toast.success("Logged in successfully!");
-                navigate(redirectPath, { replace: true });
+                toast.success("You've successfully logged in!");
+                navigate(redirectPath);
             })
             .catch((error) => {
-                let message = "Login failed.";
-                switch (error.code) {
+                const errorCode = error.code;
+                let message = "Something went wrong.";
+
+                switch (errorCode) {
                     case "auth/user-not-found":
-                        message = "No account found.";
+                        message = "No account found with this email.";
                         break;
                     case "auth/wrong-password":
-                        message = "Wrong password.";
+                        message = "Incorrect password. Please try again.";
                         break;
                     case "auth/invalid-email":
-                        message = "Invalid email.";
+                        message = "Please enter a valid email address.";
+                        break;
+                    case "auth/invalid-credential":
+                        message = "Invalid email or password.";
                         break;
                     case "auth/too-many-requests":
-                        message = "Too many attempts. Try later.";
+                        message = "Too many login attempts. Try again later.";
                         break;
+                    default:
+                        message = "Login failed. Please check your credentials.";
                 }
+
                 toast.error(message);
             });
     };
@@ -49,11 +77,11 @@ const Login = () => {
     const handleGoogleLogin = () => {
         googleSignIn()
             .then(() => {
-                toast.success("Google login successful!");
-                navigate(redirectPath, { replace: true });
+                toast.success("You've successfully logged in!");
+                navigate(redirectPath);
             })
             .catch((error) => {
-                toast.error(`Google login failed: ${error.message}`);
+                toast.error(`Google sign-in failed: ${error.message}`);
             });
     };
 
@@ -62,53 +90,91 @@ const Login = () => {
             <Helmet>
                 <title>Login | JobTrack</title>
             </Helmet>
-            <div className="min-h-screen flex items-center justify-center bg-base-200 p-6">
+            <div className="bg-base-200 flex items-center justify-center p-6 min-h-[calc(100vh-64px)]">
                 <motion.div
-                    className="bg-base-100 p-8 rounded-2xl shadow-2xl max-w-md w-full"
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    className="bg-base-100 shadow-2xl rounded-2xl p-8 w-full max-w-md"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
                 >
-                    <h2 className="text-3xl font-bold text-center text-primary mb-6">Please Login</h2>
-                    <form onSubmit={handleLogin} className="space-y-4">
+                    <motion.h2
+                        className="text-3xl font-bold text-center mb-6 text-primary"
+                        variants={itemVariants}
+                    >
+                        Please Login
+                    </motion.h2>
+
+                    <motion.form className="space-y-4" onSubmit={handleLogin} variants={itemVariants}>
                         <label className="input input-bordered flex items-center gap-2 w-full">
                             <FaUserAlt className="text-primary" />
                             <input
                                 type="text"
+                                className="grow"
+                                placeholder="Username or Email"
                                 name="email"
-                                placeholder="Email"
                                 value={email}
                                 required
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="grow"
                             />
                         </label>
-                        <label className="input input-bordered flex items-center gap-2 w-full">
+
+                        <label className="input input-bordered flex items-center gap-2 w-full relative">
                             <FaLock className="text-primary" />
                             <input
                                 type="password"
-                                name="password"
+                                className="grow pr-10"
                                 placeholder="Password"
+                                name="password"
                                 required
-                                className="grow"
                             />
+                            {/* <span
+                                className="absolute right-4 text-lg text-primary cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span> */}
                         </label>
-                        <div className="flex justify-between text-sm">
-                            <label>
-                                <input type="checkbox" className="mr-2" />
+
+                        <div className="flex justify-between text-sm mt-2">
+                            <label className="label cursor-pointer">
+                                <input type="checkbox" className="checkbox checkbox-primary mr-2" />
                                 Remember me
                             </label>
-                            <Link to="/auth/forgotPassword" state={{ email }} className="link link-primary">
+                            <Link
+                                to="/auth/forgotPassword"
+                                state={{ email }}
+                                className="link link-hover text-primary"
+                            >
                                 Forgot Password?
                             </Link>
                         </div>
-                        <button type="submit" className="btn btn-primary w-full mt-2">Login</button>
-                    </form>
-                    <div className="divider">OR</div>
-                    <button onClick={handleGoogleLogin} className="btn btn-outline w-full flex items-center gap-2">
-                        <FcGoogle /> Continue with Google
-                    </button>
-                    <p className="text-sm text-center mt-4">
+
+                        <motion.button
+                            type="submit"
+                            className="btn btn-primary w-full mt-4"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            Login
+                        </motion.button>
+                    </motion.form>
+
+                    <motion.div className="divider text-sm mt-6" variants={itemVariants}>
+                        OR
+                    </motion.div>
+
+                    <motion.button
+                        onClick={handleGoogleLogin}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="btn btn-outline btn-primary flex items-center justify-center gap-2 w-full"
+                        variants={itemVariants}
+                    >
+                        <FcGoogle className="text-xl" />
+                        Continue with Google
+                    </motion.button>
+
+                    <motion.div className="text-center mt-6 text-sm" variants={itemVariants}>
                         Don’t have an account?{" "}
                         <Link
                             to="/auth/register"
@@ -117,7 +183,7 @@ const Login = () => {
                         >
                             Register
                         </Link>
-                    </p>
+                    </motion.div>
                 </motion.div>
             </div>
         </>
