@@ -28,7 +28,7 @@ const itemVariants = {
 const Banner = ({ onFindJobsClick }) => {
     return (
         <section className="relative overflow-hidden min-h-[calc(100vh-64px)] flex items-center">
-            {/* Background Image with Overlay */}
+
             <div className="absolute inset-0 z-0">
                 <img
                     src={bannerImage}
@@ -38,7 +38,7 @@ const Banner = ({ onFindJobsClick }) => {
                 <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent backdrop-blur-[1px]"></div>
             </div>
 
-            {/* Main Content */}
+
             <div className="w-11/12 mx-auto py-20 relative z-10">
                 <motion.div
                     variants={containerVariants}
