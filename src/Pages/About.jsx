@@ -30,7 +30,7 @@ const About = () => {
                 className="bg-gradient-to-b from-white via-blue-50 to-blue-100 py-24"
             >
                 <div className="w-11/12 max-w-7xl mx-auto">
-                    {/* Header */}
+
                     <div className="text-center mb-20">
                         <h1 className="text-5xl font-extrabold text-gray-900 leading-tight mb-4">
                             Get to Know <span className="text-blue-600">JobTrack</span>
@@ -41,9 +41,9 @@ const About = () => {
                         </p>
                     </div>
 
-                    {/* Feature Cards */}
+
                     <div className="grid gap-10 md:grid-cols-3">
-                        {/* Card 1 */}
+
                         <motion.div
                             variants={cardVariants}
                             whileHover="hover"
@@ -58,7 +58,7 @@ const About = () => {
                             </p>
                         </motion.div>
 
-                        {/* Card 2 */}
+
                         <motion.div
                             variants={cardVariants}
                             whileHover="hover"
@@ -73,7 +73,7 @@ const About = () => {
                             </p>
                         </motion.div>
 
-                        {/* Card 3 */}
+
                         <motion.div
                             variants={cardVariants}
                             whileHover="hover"
@@ -89,7 +89,7 @@ const About = () => {
                         </motion.div>
                     </div>
 
-                    {/* CTA Footer */}
+
                     <div className="text-center mt-24">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                             Why Choose <span className="text-blue-600">JobTrack</span>?

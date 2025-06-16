@@ -25,7 +25,7 @@ const Contact = () => {
                 transition={{ duration: 0.6 }}
             >
                 <div className="w-11/12 mx-auto px-4">
-                    {/* Header */}
+
                     <div className="text-center mb-12">
                         <h2 className="text-4xl font-bold text-blue-700">Let’s Help You Land Your Dream Job</h2>
                         <p className="text-gray-600 mt-3 text-lg">
@@ -34,9 +34,9 @@ const Contact = () => {
                     </div>
 
 
-                    {/* Contact Container */}
+
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 rounded-xl overflow-hidden">
-                        {/* Left - Contact Info */}
+
                         <div className="bg-white p-8 space-y-6 border-r border-blue-100 rounded-md">
                             <h3 className="text-xl font-semibold text-gray-800">Contact Information</h3>
                             <div className="space-y-4">
@@ -63,7 +63,7 @@ const Contact = () => {
                                 </div>
                             </div>
 
-                            {/* Socials */}
+
                             <div className="mt-8">
                                 <h4 className="text-lg font-semibold mb-3">Connect With Us</h4>
                                 <div className="flex gap-4">
@@ -80,7 +80,6 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        {/* Right - Form */}
                         <div className="p-8 bg-white rounded-md">
                             <form className="space-y-6">
                                 <div className="grid md:grid-cols-2 gap-6">
